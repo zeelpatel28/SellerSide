@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7A1E2E">
+  <title>Set Up Your Studio | CraftVerse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <style>
+    :root {
+      --maroon-darker: #7A1E2E;
+      --maroon-dark: #9B2D3A;
+      --maroon-primary: #C1434B;
+      --maroon-light: #FDE9EA;
+      --maroon-subtle: #FFF4F4;
+      --maroon-border: #F7CCD0;
+      --white: #FFFFFF;
+      --bg-light: #FBF7F8;
+      --text-main: #24080F;
+      --text-body: #4A3037;
+      --text-muted: #7E636A;
+      --green: #15803D;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-sm: 0 2px 6px rgba(70, 6, 19, .04);
+      --shadow-md: 0 6px 18px rgba(70, 6, 19, .07);
+      --sidebar-width: 260px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-light);
+      color: var(--text-body);
+      font: 400 15px/1.55 'Plus Jakarta Sans', sans-serif;
+    }
+    h1, h2, h3, h4 { margin: 0; color: var(--text-main); font-family: 'Outfit', sans-serif; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 5;
+      display: flex;
+      width: var(--sidebar-width);
+      flex-direction: column;
+      background: linear-gradient(180deg, var(--maroon-darker), var(--maroon-dark) 48%, #38030E);
+      color: var(--white);
+      box-shadow: 4px 0 25px rgba(50, 4, 13, .15);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; padding: 24px 22px; border-bottom: 1px solid #ffffff1a; }
+    .brand-mark { display: grid; width: 42px; height: 42px; place-items: center; border-radius: var(--radius-md); background: var(--white); color: var(--maroon-primary); font: 800 17px 'Outfit', sans-serif; }
+    .brand h1 { color: var(--white); font-size: 1.1rem; line-height: 1.1; }
+    .brand p { margin: 4px 0 0; color: #ffffffb8; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .nav { display: grid; gap: 6px; padding: 22px 14px; }
+    .nav-label { padding: 4px 12px 8px; color: #ffffff91; font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+    .nav button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 13px; border: 0; border-radius: var(--radius-md); background: transparent; color: #ffffffdf; text-align: left; font-size: .86rem; }
+    .nav button:hover, .nav button[aria-current="page"] { background: var(--white); color: var(--maroon-primary); font-weight: 700; }
+    .nav button .material-symbols-outlined { font-size: 20px; }
+    .sidebar-note { margin: auto 16px 18px; padding: 14px; border: 1px solid #ffffff28; border-radius: var(--radius-md); background: #00000025; color: #ffffffd9; font-size: .78rem; }
+    .sidebar-note strong { display: block; margin-bottom: 3px; color: var(--white); }
+    .app { min-height: 100vh; margin-left: var(--sidebar-width); }
+    .topbar { position: sticky; top: 0; z-index: 4; display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 30px; border-bottom: 1px solid var(--maroon-border); background: #ffffffed; backdrop-filter: blur(14px); }
+    .topbar-title { color: var(--text-muted); font-size: .78rem; font-weight: 700; }
+    .studio-pill { display: flex; align-items: center; gap: 8px; max-width: 50vw; padding: 7px 13px; overflow: hidden; border: 1px solid var(--maroon-border); border-radius: 999px; background: var(--maroon-subtle); color: var(--maroon-dark); font-size: .8rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    main { width: min(1180px, 100%); margin: 0 auto; padding: 30px; }
+    .welcome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+      padding: 30px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(125deg, var(--maroon-primary), var(--maroon-dark) 56%, var(--maroon-darker));
+      box-shadow: 0 10px 28px #7a1e2e3d;
+      color: var(--white);
+    }
+    .welcome h2 { margin: 5px 0 8px; color: var(--white); font-size: clamp(1.5rem, 3vw, 2rem); }
+    .welcome p { max-width: 650px; margin: 0; color: #ffffffd9; font-size: .9rem; }
+    .eyebrow { color: #ffffffc9; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .btn { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px; padding: 9px 16px; border: 1px solid transparent; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--maroon-primary), var(--maroon-dark)); box-shadow: 0 6px 16px #80002030; color: var(--white); }
+    .btn-light { background: var(--white); color: var(--maroon-primary); }
+    .btn-quiet { border-color: var(--maroon-border); background: var(--maroon-subtle); color: var(--maroon-primary); }
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .stat, .panel { border: 1px solid #f0e5e7; border-radius: var(--radius-lg); background: var(--white); box-shadow: var(--shadow-sm); }
+    .stat { padding: 18px 20px; }
+    .stat-label { color: var(--text-muted); font-size: .78rem; font-weight: 700; }
+    .stat-value { margin-top: 4px; color: var(--text-main); font: 700 1.65rem 'Outfit', sans-serif; }
+    .panel { margin-bottom: 18px; padding: 22px; }
+    .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+    .panel-head h3 { display: flex; align-items: center; gap: 8px; font-size: 1.08rem; }
+    .panel-head .material-symbols-outlined { color: var(--maroon-primary); }
+    .panel-head p { margin: 4px 0 0; color: var(--text-muted); font-size: .8rem; }
+    .setup-panel { border-color: var(--maroon-border); background: linear-gradient(135deg, var(--white), var(--maroon-subtle)); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    label { color: var(--text-body); font-size: .8rem; font-weight: 700; }
+    input, select, textarea { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #e6d9dc; border-radius: var(--radius-sm); outline: none; background: var(--white); color: var(--text-main); }
+    textarea { min-height: 100px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--maroon-primary); box-shadow: 0 0 0 3px #c1434b17; }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    .empty { display: grid; justify-items: center; padding: 24px 14px; border: 1px dashed var(--maroon-border); border-radius: var(--radius-md); background: #fffafb; text-align: center; }
+    .empty .material-symbols-outlined { margin-bottom: 7px; color: #d79aa0; font-size: 32px; }
+    .empty strong { color: var(--text-body); font-size: .88rem; }
+    .empty span:last-child { margin-top: 4px; color: var(--text-muted); font-size: .78rem; }
+    .record-list { display: grid; gap: 10px; }
+    .record { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 14px; border: 1px solid #f0e5e7; border-radius: var(--radius-md); }
+    .record h4 { font-size: .92rem; }
+    .record p { margin: 4px 0 0; color: var(--text-muted); font-size: .78rem; overflow-wrap: anywhere; }
+    .tag { flex: 0 0 auto; padding: 4px 9px; border-radius: 999px; background: var(--maroon-light); color: var(--maroon-dark); font-size: .68rem; font-weight: 700; }
+    .hidden { display: none !important; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 10; max-width: min(420px, calc(100vw - 44px)); padding: 13px 16px; border-radius: var(--radius-md); background: #321019; box-shadow: var(--shadow-md); color: var(--white); font-size: .84rem; }
+    @media (max-width: 800px) {
+      :root { --sidebar-width: 220px; }
+      main { padding: 22px 18px; }
+      .topbar { padding: 12px 18px; }
+      .welcome { align-items: flex-start; flex-direction: column; padding: 24px; }
+    }
+    @media (max-width: 620px) {
+      .sidebar { position: static; width: 100%; min-height: auto; }
+      .brand { padding: 14px 18px; }
+      .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 12px; }
+      .nav-label { grid-column: 1 / -1; }
+      .nav button { padding: 9px; font-size: .76rem; }
+      .sidebar-note { display: none; }
+      .app { margin-left: 0; }
+      .topbar { position: static; min-height: 58px; }
+      main { padding: 18px 14px; }
+      .stats { gap: 8px; }
+      .stat { padding: 13px; }
+      .stat-value { font-size: 1.35rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+    }
+    @media (max-width: 380px) {
+      .stats { grid-template-columns: 1fr; }
+      .studio-pill { max-width: 58vw; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">CV</div>
+      <div><h1>CraftVerse</h1><p>Seller Studio</p></div>
+    </div>
+    <nav class="nav" aria-label="Your studio">
+      <div class="nav-label">Your workspace</div>
+      <button type="button" data-target="studioSetup" aria-current="page"><span class="material-symbols-outlined">storefront</span>Studio setup</button>
+      <button type="button" data-target="productsSection"><span class="material-symbols-outlined">inventory_2</span>Products</button>
+      <button type="button" data-target="shipmentsSection"><span class="material-symbols-outlined">local_shipping</span>Track shipments</button>
+      <button type="button" data-target="tutorialsSection"><span class="material-symbols-outlined">school</span>Video tutorials</button>
+    </nav>
+    <div class="sidebar-note"><strong>Your studio starts here</strong>Your workspace is private to this browser and starts with no sample listings or orders.</div>
+  </aside>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-title">Welcome / Set up your seller workspace</div>
+      <div class="studio-pill"><span class="material-symbols-outlined" style="font-size:17px">palette</span><span id="studioNamePill">Your Studio</span></div>
+    </header>
+    <main>
+      <section class="welcome">
+        <div>
+          <div class="eyebrow">Your independent seller workspace</div>
+          <h2 id="welcomeTitle">Welcome to your new studio</h2>
+          <p>Set up your studio, add your first handmade product, and keep shipment and tutorial information together. Your lists are empty until you add your own details.</p>
+        </div>
+        <button class="btn btn-light" type="button" data-scroll="productForm"><span class="material-symbols-outlined">add</span>Add your first product</button>
+      </section>
+
+      <section class="stats" aria-label="Workspace summary">
+        <article class="stat"><div class="stat-label">Products</div><div class="stat-value" id="productCount">0</div></article>
+        <article class="stat"><div class="stat-label">Shipments</div><div class="stat-value" id="shipmentCount">0</div></article>
+        <article class="stat"><div class="stat-label">Tutorials</div><div class="stat-value" id="tutorialCount">0</div></article>
+      </section>
+
+      <section class="panel setup-panel" id="studioSetup">
+        <div class="panel-head">
+          <div><h3><span class="material-symbols-outlined">storefront</span>Start with your studio name</h3><p>This name identifies your workspace. You can update it whenever you need.</p></div>
+        </div>
+        <form id="studioForm">
+          <div class="field">
+            <label for="studioName">Seller / studio name</label>
+            <input id="studioName" name="studioName" type="text" maxlength="80" placeholder="e.g., Maya's Clay Studio" required>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">check</span>Save studio name</button></div>
+        </form>
+      </section>
+
+      <section class="panel" id="productsSection">
+        <div class="panel-head">
+          <div><h3><span class="material-symbols-outlined">inventory_2</span>Add product details</h3><p>Create your own listing. There are no preloaded products or buyer preview cards.</p></div>
+        </div>
+        <form id="productForm">
+          <div class="form-grid">
+            <div class="field"><label for="productTitle">Product name *</label><input id="productTitle" name="title" required maxlength="120" placeholder="Name your handmade product"></div>
+            <div class="field"><label for="productCategory">Craft category *</label><select id="productCategory" name="category" required><option value="">Choose a category</option><option>Ceramics &amp; Pottery</option><option>Handknit &amp; Textiles</option><option>Woodcraft &amp; Carvings</option><option>Brass &amp; Metalwork</option><option>Organic Scent &amp; Wax</option><option>Other</option></select></div>
+            <div class="field full"><label for="productDescription">Product details</label><textarea id="productDescription" name="description" maxlength="1000" placeholder="Describe materials, process, size, and what makes it special"></textarea></div>
+            <div class="field"><label for="productPrice">Price (₹) *</label><input id="productPrice" name="price" type="number" min="0.01" step="0.01" required placeholder="0.00"></div>
+            <div class="field"><label for="productStock">Available quantity *</label><input id="productStock" name="stock" type="number" min="0" step="1" required placeholder="0"></div>
+            <div class="field full"><label for="productPhoto">Product photo (optional)</label><input id="productPhoto" name="photo" type="file" accept="image/jpeg,image/png"><span style="color:var(--text-muted);font-size:.74rem">JPEG or PNG, up to 5 MB. Stored locally in this browser.</span></div>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">add_box</span>Save product</button><button class="btn btn-quiet" type="reset">Clear form</button></div>
+        </form>
+        <div class="panel-head" style="margin:22px 0 10px"><div><h3>Your products</h3></div></div>
+        <div class="record-list" id="productList"></div>
+      </section>
+
+      <section class="panel" id="shipmentsSection">
+        <div class="panel-head">
+          <div><h3><span class="material-symbols-outlined">local_shipping</span>Track a shipment</h3><p>Add a shipment only when you have one. Tracking updates are recorded here manually.</p></div>
+        </div>
+        <form id="shipmentForm">
+          <div class="form-grid">
+            <div class="field"><label for="shipmentOrder">Order or parcel reference *</label><input id="shipmentOrder" required maxlength="80" placeholder="Your order / parcel reference"></div>
+            <div class="field"><label for="shipmentCarrier">Courier (optional)</label><input id="shipmentCarrier" maxlength="80" placeholder="Courier name"></div>
+            <div class="field"><label for="shipmentTracking">Tracking number *</label><input id="shipmentTracking" required maxlength="100" placeholder="Enter tracking number"></div>
+            <div class="field"><label for="shipmentStatus">Current status</label><select id="shipmentStatus"><option>Ready to ship</option><option>Shipped</option><option>In transit</option><option>Delivered</option></select></div>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">add</span>Add shipment</button></div>
+        </form>
+        <div class="panel-head" style="margin:22px 0 10px"><div><h3>Your shipments</h3></div></div>
+        <div class="record-list" id="shipmentList"></div>
+      </section>
+
+      <section class="panel" id="tutorialsSection">
+        <div class="panel-head">
+          <div><h3><span class="material-symbols-outlined">school</span>Add a video tutorial</h3><p>Save a tutorial title and a video link for your own studio reference.</p></div>
+        </div>
+        <form id="tutorialForm">
+          <div class="form-grid">
+            <div class="field"><label for="tutorialTitle">Tutorial title *</label><input id="tutorialTitle" required maxlength="120" placeholder="e.g., Introduction to block printing"></div>
+            <div class="field"><label for="tutorialUrl">Video URL *</label><input id="tutorialUrl" type="url" required maxlength="500" placeholder="https://..."></div>
+            <div class="field full"><label for="tutorialDescription">Notes (optional)</label><textarea id="tutorialDescription" maxlength="1000" placeholder="Add a short description or learning notes"></textarea></div>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">video_library</span>Save tutorial</button></div>
+        </form>
+        <div class="panel-head" style="margin:22px 0 10px"><div><h3>Your tutorials</h3></div></div>
+        <div class="record-list" id="tutorialList"></div>
+      </section>
+      <p style="margin:22px 0 0;color:var(--text-muted);font-size:.75rem">Workspace data is stored in this browser and is not connected to the existing seller dashboard.</p>
+    </main>
+  </div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script>
+    const STORAGE_KEYS = {
+      studio: 'craftverse_new_seller_studio_v1',
+      products: 'craftverse_new_seller_products_v1',
+      shipments: 'craftverse_new_seller_shipments_v1',
+      tutorials: 'craftverse_new_seller_tutorials_v1'
+    };
+    const toastElement = document.getElementById('toast');
+    let toastTimeout;
+
+    function showToast(message) {
+      toastElement.textContent = message;
+      toastElement.classList.remove('hidden');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toastElement.classList.add('hidden'), 3200);
+    }
+
+    function readStored(key, fallback) {
+      const value = localStorage.getItem(key);
+      if (value === null) return fallback;
+      const parsed = JSON.parse(value);
+      return parsed;
+    }
+
+    function readList(key) {
+      const value = readStored(key, []);
+      if (!Array.isArray(value)) throw new Error('Saved workspace data has an unexpected format.');
+      return value;
+    }
+
+    function saveStored(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch (error) {
+        console.error('Could not save seller workspace data:', error);
+        showToast('Could not save this information in browser storage. Check available storage and try again.');
+        return false;
+      }
+    }
+
+    function makeEmpty(container, icon, title, detail) {
+      container.replaceChildren();
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      const iconElement = document.createElement('span');
+      iconElement.className = 'material-symbols-outlined';
+      iconElement.textContent = icon;
+      const heading = document.createElement('strong');
+      heading.textContent = title;
+      const message = document.createElement('span');
+      message.textContent = detail;
+      empty.append(iconElement, heading, message);
+      container.append(empty);
+    }
+
+    function makeRecord(container, title, details, tagText, link) {
+      const record = document.createElement('article');
+      record.className = 'record';
+      const content = document.createElement('div');
+      const heading = document.createElement('h4');
+      heading.textContent = title;
+      const description = document.createElement('p');
+      description.textContent = details;
+      content.append(heading, description);
+      if (link) {
+        const anchor = document.createElement('a');
+        anchor.href = link;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        anchor.className = 'tag';
+        anchor.textContent = 'Open video';
+        record.append(content, anchor);
+      } else {
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = tagText;
+        record.append(content, tag);
+      }
+      container.append(record);
+    }
+
+    function render() {
+      try {
+        const products = readList(STORAGE_KEYS.products);
+        const shipments = readList(STORAGE_KEYS.shipments);
+        const tutorials = readList(STORAGE_KEYS.tutorials);
+        const studio = readStored(STORAGE_KEYS.studio, '') || '';
+        document.getElementById('productCount').textContent = products.length;
+        document.getElementById('shipmentCount').textContent = shipments.length;
+        document.getElementById('tutorialCount').textContent = tutorials.length;
+        if (studio) document.getElementById('studioName').value = studio;
+        document.getElementById('studioNamePill').textContent = studio || 'Your Studio';
+        document.getElementById('welcomeTitle').textContent = studio ? `Welcome, ${studio}` : 'Welcome to your new studio';
+
+        const productList = document.getElementById('productList');
+        productList.replaceChildren();
+        if (products.length === 0) makeEmpty(productList, 'inventory_2', 'No products yet', 'Add your first handmade product using the form above.');
+        products.forEach(product => makeRecord(productList, product.title, `${product.category} · ₹${Number(product.price).toLocaleString('en-IN')} · ${product.stock} available`, 'Product'));
+
+        const shipmentList = document.getElementById('shipmentList');
+        shipmentList.replaceChildren();
+        if (shipments.length === 0) makeEmpty(shipmentList, 'local_shipping', 'No shipments to track', 'Your shipment list will stay empty until you add a parcel.');
+        shipments.forEach(shipment => makeRecord(shipmentList, shipment.order, `${shipment.carrier || 'Courier not specified'} · Tracking: ${shipment.tracking}`, shipment.status));
+
+        const tutorialList = document.getElementById('tutorialList');
+        tutorialList.replaceChildren();
+        if (tutorials.length === 0) makeEmpty(tutorialList, 'play_circle', 'No tutorials yet', 'Add a video link when you are ready to save a tutorial.');
+        tutorials.forEach(tutorial => makeRecord(tutorialList, tutorial.title, tutorial.description || tutorial.url, '', tutorial.url));
+      } catch (error) {
+        console.error('Could not load seller workspace data:', error);
+        showToast('Could not load saved workspace data. Please check browser storage.');
+      }
+    }
+
+    document.querySelectorAll('.nav button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.nav button').forEach(item => item.removeAttribute('aria-current'));
+        button.setAttribute('aria-current', 'page');
+        document.getElementById(button.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.querySelector('[data-scroll="productForm"]').addEventListener('click', () => {
+      document.getElementById('productTitle').focus({ preventScroll: true });
+      document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('studioForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const studio = document.getElementById('studioName').value.trim();
+      if (!studio) return;
+      if (saveStored(STORAGE_KEYS.studio, studio)) {
+        render();
+        showToast('Studio name saved.');
+      }
+    });
+
+    document.getElementById('productForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const photo = document.getElementById('productPhoto').files[0];
+      if (photo && (!['image/jpeg', 'image/png'].includes(photo.type) || photo.size > 5 * 1024 * 1024)) {
+        showToast('Choose a JPEG or PNG image no larger than 5 MB.');
+        return;
+      }
+      let photoData = '';
+      if (photo) {
+        try {
+          photoData = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('The selected image could not be read.'));
+            reader.readAsDataURL(photo);
+          });
+        } catch (error) {
+          console.error('Could not read product photo:', error);
+          showToast(error.message);
+          return;
+        }
+      }
+      try {
+        const products = readList(STORAGE_KEYS.products);
+        products.unshift({
+          id: `product-${Date.now()}`,
+          title: document.getElementById('productTitle').value.trim(),
+          category: document.getElementById('productCategory').value,
+          description: document.getElementById('productDescription').value.trim(),
+          price: Number(document.getElementById('productPrice').value),
+          stock: Number(document.getElementById('productStock').value),
+          photo: photoData
+        });
+        if (saveStored(STORAGE_KEYS.products, products)) {
+          form.reset();
+          render();
+          showToast('Product saved to your new studio.');
+        }
+      } catch (error) {
+        console.error('Could not save product:', error);
+        showToast('Could not save the product. Check browser storage and try again.');
+      }
+    });
+
+    document.getElementById('shipmentForm').addEventListener('submit', event => {
+      event.preventDefault();
+      try {
+        const shipments = readList(STORAGE_KEYS.shipments);
+        shipments.unshift({
+          id: `shipment-${Date.now()}`,
+          order: document.getElementById('shipmentOrder').value.trim(),
+          carrier: document.getElementById('shipmentCarrier').value.trim(),
+          tracking: document.getElementById('shipmentTracking').value.trim(),
+          status: document.getElementById('shipmentStatus').value
+        });
+        if (saveStored(STORAGE_KEYS.shipments, shipments)) {
+          event.currentTarget.reset();
+          render();
+          showToast('Shipment added to your tracking list.');
+        }
+      } catch (error) {
+        console.error('Could not save shipment:', error);
+        showToast('Could not save the shipment. Check browser storage and try again.');
+      }
+    });
+
+    document.getElementById('tutorialForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const url = document.getElementById('tutorialUrl').value.trim();
+      try {
+        const parsedUrl = new URL(url);
+        if (!['http:', 'https:'].includes(parsedUrl.protocol)) throw new Error('Use a valid http or https video URL.');
+        const tutorials = readList(STORAGE_KEYS.tutorials);
+        tutorials.unshift({
+          id: `tutorial-${Date.now()}`,
+          title: document.getElementById('tutorialTitle').value.trim(),
+          url: parsedUrl.href,
+          description: document.getElementById('tutorialDescription').value.trim()
+        });
+        if (saveStored(STORAGE_KEYS.tutorials, tutorials)) {
+          event.currentTarget.reset();
+          render();
+          showToast('Tutorial saved to your studio.');
+        }
+      } catch (error) {
+        console.error('Could not save tutorial:', error);
+        showToast(error.message || 'Could not save the tutorial. Check browser storage and try again.');
+      }
+    });
+
+    try {
+      const registeredSeller = JSON.parse(localStorage.getItem('craftverseSeller') || 'null');
+      if (registeredSeller && typeof registeredSeller.sellerName === 'string' && !localStorage.getItem(STORAGE_KEYS.studio)) {
+        document.getElementById('studioName').value = registeredSeller.sellerName;
+      }
+    } catch (error) {
+      console.error('Could not read registered seller details:', error);
+      showToast('Could not load your registration details. Enter your studio name to continue.');
+    }
+    render();
+  </script>
+</body>
+</html>

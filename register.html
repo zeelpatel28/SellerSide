@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | CraftVerse Seller Studio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f5f5;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+            padding: 40px 35px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(80, 0, 20, 0.10);
+        }
+
+        .logo {
+            text-align: center;
+            color: #800020;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #800020;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #800020;
+            box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.08);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #800020;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #650019;
+        }
+
+        .switch-page {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .switch-page a {
+            color: #800020;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .switch-page a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 30px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="logo">CraftVerse</div>
+        <p class="subtitle">Seller Studio</p>
+
+        <h2>Create Account</h2>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="sellerName">Seller / Studio Name</label>
+                <input
+                    type="text"
+                    id="sellerName"
+                    name="sellerName"
+                    placeholder="Enter your studio name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    minlength="8"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Re-enter your password"
+                    minlength="8"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="submit-btn">Create Account</button>
+        </form>
+
+        <p class="switch-page">
+            Already have an account?
+            <a href="login.html">Log in</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const sellerName = document.getElementById("sellerName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            try {
+                localStorage.setItem('craftverseSeller', JSON.stringify({
+                    sellerName: sellerName || 'Artisan',
+                    email: email,
+                    joinedAt: new Date().toISOString()
+                }));
+            } catch (e) {}
+
+            window.location.href = "seller-onboarding.html";
+        });
+    </script>
+
+</body>
+</html>

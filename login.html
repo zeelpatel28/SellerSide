@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CraftVerse Seller Studio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f5f5;
+            color: #333;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+            padding: 40px 35px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(80, 0, 20, 0.10);
+        }
+
+        .logo {
+            text-align: center;
+            color: #800020;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #800020;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #800020;
+            box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.08);
+        }
+
+        .forgot {
+            display: block;
+            text-align: right;
+            color: #800020;
+            font-size: 13px;
+            text-decoration: none;
+            margin-top: -5px;
+            margin-bottom: 22px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #800020;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #650019;
+        }
+
+        .switch-page {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .switch-page a {
+            color: #800020;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .switch-page a:hover,
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 30px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="logo">CraftVerse</div>
+        <p class="subtitle">Seller Studio</p>
+
+        <h2>Welcome Back</h2>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <a href="#" class="forgot" id="forgotPassword">Forgot password?</a>
+
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+
+        <p class="switch-page">
+            Don't have an account?
+            <a href="register.html">Sign up</a>
+        </p>
+    </div>
+
+ <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+            alert("Please enter your email and password.");
+            return;
+        }
+
+        // Demo login: redirects to the main dashboard.
+        // Add real authentication before using this on a live website.
+        window.location.href = "add.html";
+    });
+
+    document.getElementById("forgotPassword").addEventListener("click", function(event) {
+        event.preventDefault();
+        alert("Connect your password reset functionality here.");
+    });
+</script>
+
+</body>
+</html>

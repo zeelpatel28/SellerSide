@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product | CraftVerse Seller Studio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    :root {
+      /* Maroon & White Color Tokens (matches Seller Studio dashboard) */
+      --maroon-darker: #7A1E2E;
+      --maroon-dark: #9B2D3A;
+      --maroon-primary: #C1434B;
+      --maroon-medium: #D66A73;
+      --maroon-bright: #E9868E;
+      --maroon-light: #FDE9EA;
+      --maroon-subtle: #FFF4F4;
+      --maroon-border: #F7CCD0;
+
+      --white: #FFFFFF;
+      --bg-light: #FBF7F8;
+      --bg-card: #FFFFFF;
+
+      --text-main: #24080F;
+      --text-body: #4A3037;
+      --text-muted: #7E636A;
+      --text-white: #FFFFFF;
+
+      --green-success: #15803D;
+      --green-light: #ECFDF5;
+      --amber-warn: #D97706;
+      --amber-light: #FFFBEB;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 6px rgba(70, 6, 19, 0.04);
+      --shadow-md: 0 6px 18px rgba(70, 6, 19, 0.07);
+      --shadow-lg: 0 12px 30px rgba(70, 6, 19, 0.11);
+      --shadow-maroon: 0 8px 24px rgba(128, 0, 32, 0.22);
+
+      --sidebar-width: 270px;
+      --header-height: 72px;
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+    }
+
+    h1, h2, h3, h4, h5, .brand-title {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-main);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: var(--bg-light); }
+    ::-webkit-scrollbar-thumb { background: var(--maroon-border); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--maroon-primary); }
+
+    /* TOP BAR */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: linear-gradient(180deg, var(--maroon-darker) 0%, var(--maroon-dark) 45%, #38030E 100%);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      box-shadow: 4px 0 25px rgba(50, 4, 13, 0.18);
+      transition: transform var(--transition-fast);
+      overflow-y: auto;
+    }
+    .sidebar-header {
+      padding: 24px 22px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .brand-box { display: flex; align-items: center; gap: 12px; }
+    .brand-logo-icon {
+      width: 42px; height: 42px;
+      background: var(--white);
+      color: var(--maroon-primary);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .brand-text .brand-title { color: var(--white); font-size: 1.15rem; line-height: 1.1; }
+    .brand-text .brand-sub {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .sidebar-nav { padding: 16px 14px; display: flex; flex-direction: column; gap: 4px; }
+    .nav-label {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 10px 12px 4px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      color: rgba(255,255,255,0.84);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+    .nav-item.active {
+      background: var(--white);
+      color: var(--maroon-primary);
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .nav-item .material-symbols-outlined { font-size: 20px; }
+    .nav-item.active .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .artisan-status-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .status-dot-pulse {
+      width: 10px; height: 10px;
+      flex: 0 0 10px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 10px #22C55E;
+    }
+
+    .app-main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .top-header {
+      position: sticky;
+      top: 0;
+      height: var(--header-height);
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--maroon-border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      z-index: 40;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--maroon-primary);
+      cursor: pointer;
+    }
+    .header-kicker { color: var(--text-muted); font-size: 0.76rem; font-weight: 700; }
+    .header-title { color: var(--text-main); font: 700 1rem 'Outfit', sans-serif; }
+    .header-right { display: flex; align-items: center; gap: 14px; }
+    .studio-mode-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--maroon-subtle);
+      border: 1px solid var(--maroon-border);
+      border-radius: var(--radius-full);
+      color: var(--maroon-primary);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .dashboard-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--maroon-primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .dashboard-link:hover { color: var(--maroon-dark); }
+    .content-body { padding: 28px 32px 50px; flex: 1; }
+    .page-banner {
+      background: linear-gradient(135deg, var(--maroon-primary) 0%, var(--maroon-dark) 50%, var(--maroon-darker) 100%);
+      color: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 26px 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-maroon);
+    }
+    .page-banner .badge {
+      display: inline-flex;
+      padding: 4px 10px;
+      margin-bottom: 8px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.2);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .page-banner h1 { color: var(--white); font-size: 1.65rem; margin-bottom: 5px; }
+    .page-banner p { color: rgba(255,255,255,0.82); font-size: 0.88rem; }
+
+    /* PAGE LAYOUT */
+    .onboard-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .onboard-header { display: none; }
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--maroon-subtle);
+      border: 1px solid var(--maroon-border);
+      color: var(--maroon-primary);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      margin-bottom: 14px;
+    }
+    .onboard-header h1 { font-size: 1.7rem; margin-bottom: 8px; }
+    .onboard-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* CARD */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--maroon-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.05rem;
+      color: var(--maroon-dark);
+      margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-title .material-symbols-outlined { font-size: 20px; }
+    .card-desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* PHOTO UPLOAD */
+    .upload-zone {
+      border: 2px dashed var(--maroon-border);
+      border-radius: var(--radius-md);
+      padding: 30px 20px;
+      text-align: center;
+      background: var(--maroon-subtle);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--maroon-primary);
+      background: var(--maroon-light);
+    }
+    .upload-zone .material-symbols-outlined { font-size: 34px; color: var(--maroon-primary); }
+    .upload-zone .up-title { font-weight: 700; color: var(--maroon-dark); font-size: 0.92rem; margin-top: 8px; }
+    .upload-zone .up-sub { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .photo-thumb {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--maroon-border);
+      box-shadow: var(--shadow-sm);
+      background: var(--maroon-light);
+    }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-thumb .remove-btn {
+      position: absolute; top: 6px; right: 6px;
+      width: 24px; height: 24px;
+      background: rgba(36, 8, 15, 0.65);
+      color: var(--white);
+      border: none; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 15px;
+    }
+    .photo-thumb .remove-btn:hover { background: var(--maroon-primary); }
+    .photo-thumb .cover-tag {
+      position: absolute; bottom: 6px; left: 6px;
+      background: var(--maroon-primary);
+      color: var(--white);
+      font-size: 0.62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.03em;
+      padding: 3px 8px; border-radius: var(--radius-full);
+    }
+    .photo-thumb.add-more {
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 4px;
+      cursor: pointer;
+      border: 2px dashed var(--maroon-border);
+      background: var(--white);
+      color: var(--maroon-primary);
+    }
+    .photo-thumb.add-more:hover { background: var(--maroon-subtle); }
+    .photo-thumb.add-more .material-symbols-outlined { font-size: 24px; }
+    .photo-thumb.add-more span.label { font-size: 0.68rem; font-weight: 700; }
+
+    /* FORM */
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-group label { font-size: 0.84rem; font-weight: 700; color: var(--maroon-dark); }
+    .form-group label .optional { color: var(--text-muted); font-weight: 500; text-transform: none; }
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--maroon-border);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      background: var(--white);
+      outline: none;
+      font-family: inherit;
+      transition: border-color var(--transition-fast);
+    }
+    .form-control:focus {
+      border-color: var(--maroon-primary);
+      box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+    }
+    textarea.form-control { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .form-hint { font-size: 0.74rem; color: var(--text-muted); }
+
+    .margin-display {
+      padding: 10px 14px;
+      background: var(--maroon-subtle);
+      border: 1px solid var(--maroon-border);
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      color: var(--maroon-dark);
+      margin-top: -6px;
+      margin-bottom: 18px;
+    }
+    .margin-display:empty { display: none; }
+    .price-breakdown { display: grid; gap: 7px; }
+    .price-breakdown-row { display: flex; justify-content: space-between; gap: 14px; }
+    .price-breakdown-row.total {
+      padding-top: 7px;
+      border-top: 1px solid var(--maroon-border);
+      font-weight: 700;
+    }
+
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--bg-light);
+      border: 1px solid var(--maroon-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+    }
+    .toggle-row .tr-title { font-size: 0.85rem; font-weight: 700; color: var(--maroon-dark); }
+    .toggle-row .tr-sub { font-size: 0.72rem; color: var(--text-muted); }
+    .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; inset: 0;
+      background-color: #CBD5E1; transition: .3s; border-radius: 24px;
+    }
+    .toggle-slider:before {
+      position: absolute; content: "";
+      height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background-color: white; transition: .3s; border-radius: 50%;
+    }
+    input:checked + .toggle-slider { background-color: var(--maroon-primary); }
+    input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 22px;
+      font-size: 0.9rem; font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-maroon {
+      background: linear-gradient(135deg, var(--maroon-primary) 0%, var(--maroon-dark) 100%);
+      color: var(--white);
+      box-shadow: var(--shadow-maroon);
+    }
+    .btn-maroon:hover { transform: translateY(-1px); box-shadow: 0 10px 25px rgba(128, 0, 32, 0.32); }
+    .btn-subtle { background: var(--maroon-subtle); color: var(--maroon-primary); border: 1px solid var(--maroon-border); }
+    .btn-subtle:hover { background: var(--maroon-light); }
+
+    .action-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .action-bar .btn { flex: 1; min-width: 160px; }
+
+    .field-error { color: var(--maroon-primary); font-size: 0.76rem; margin-top: -12px; margin-bottom: 12px; display: none; }
+
+    /* TOAST */
+    #toastContainer { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 200; }
+    .toast-message {
+      background: var(--text-main);
+      color: var(--white);
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: var(--shadow-lg);
+      max-width: 320px;
+    }
+
+    input[type="file"] { display: none; }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .app-main { margin-left: 0; }
+      .mobile-menu-btn { display: inline-flex; }
+      .top-header { padding: 0 16px; }
+      .content-body { padding: 18px 16px 40px; }
+      .studio-mode-pill { display: none; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+      .action-bar .btn { min-width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .header-kicker { display: none; }
+      .header-title { font-size: 0.9rem; }
+      .dashboard-link .dashboard-link-label { display: none; }
+      .page-banner { padding: 22px; }
+      .page-banner h1 { font-size: 1.4rem; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-box">
+        <div class="brand-logo-icon">M</div>
+        <div class="brand-text">
+          <div class="brand-title">Maroon Studio</div>
+          <div class="brand-sub">Artisan Seller Hub</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" aria-label="Seller navigation">
+      <div class="nav-label">Core Operations</div>
+      <a class="nav-item" href="Sellerside.html?tab=seller-home">
+        <span class="material-symbols-outlined">storefront</span>
+        <span>Seller Home</span>
+      </a>
+      <a class="nav-item active" href="Sellerside.html?tab=products" aria-current="page">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <span>Products</span>
+      </a>
+      <a class="nav-item" href="Sellerside.html?tab=orders">
+        <span class="material-symbols-outlined">local_shipping</span>
+        <span>Orders</span>
+      </a>
+      <div class="nav-label">Financial & Growth</div>
+      <a class="nav-item" href="Sellerside.html?tab=analytics">
+        <span class="material-symbols-outlined">analytics</span>
+        <span>Analytics</span>
+      </a>
+      <a class="nav-item" href="Sellerside.html?tab=payments">
+        <span class="material-symbols-outlined">payments</span>
+        <span>Payments</span>
+      </a>
+      <div class="nav-label">Craft & Community</div>
+      <a class="nav-item" href="Sellerside.html?tab=learn">
+        <span class="material-symbols-outlined">school</span>
+        <span>Learn</span>
+      </a>
+      <a class="nav-item" href="Sellerside.html?tab=collaborate">
+        <span class="material-symbols-outlined">handshake</span>
+        <span>Collaborate</span>
+      </a>
+      <a class="nav-item" href="Sellerside.html?tab=community">
+        <span class="material-symbols-outlined">forum</span>
+        <span>Community</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="artisan-status-card">
+        <span class="status-dot-pulse"></span>
+        <span>Studio is open</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <header class="top-header">
+      <div class="header-left">
+        <button class="mobile-menu-btn" type="button" onclick="toggleMobileSidebar()" aria-label="Open navigation">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div>
+          <div class="header-kicker">Products / New listing</div>
+          <div class="header-title">Add Artisan Product</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="studio-mode-pill">
+          <span class="material-symbols-outlined" style="font-size:16px;">palette</span>
+          Jaipur Artisan Atelier
+        </div>
+        <a class="dashboard-link" href="Sellerside.html?tab=products">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+          <span class="dashboard-link-label">Back to Products</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="content-body">
+      <section class="page-banner">
+        <span class="badge">New product listing</span>
+        <h1>Add Your Product</h1>
+        <p>Share your craft with buyers. Add photos, product details, pricing, and availability.</p>
+      </section>
+
+  <div class="onboard-wrap">
+    <form id="addProductForm">
+
+      <!-- PHOTOS -->
+      <div class="card">
+        <div class="card-title">
+          <span class="material-symbols-outlined">photo_camera</span>
+          Product Photos
+        </div>
+        <div class="card-desc">Add clear, well-lit photos from multiple angles. The first photo becomes your cover image.</div>
+
+        <div class="upload-zone" id="uploadZone">
+          <span class="material-symbols-outlined">cloud_upload</span>
+          <div class="up-title">Click or drag photos here</div>
+          <div class="up-sub">JPEG or PNG, up to 8 photos, 10 MB each</div>
+          <input type="file" id="photoInput" accept="image/jpeg,image/png" multiple>
+        </div>
+
+        <div class="photo-grid" id="photoGrid"></div>
+        <div class="field-error" id="photoError">Please add at least one product photo.</div>
+      </div>
+
+      <!-- CORE DETAILS -->
+      <div class="card">
+        <div class="card-title">
+          <span class="material-symbols-outlined">edit_note</span>
+          Product Details
+        </div>
+        <div class="card-desc">Tell buyers what makes this piece special.</div>
+
+        <div class="form-group">
+          <label>Product Title *</label>
+          <input type="text" class="form-control" id="pTitle">
+        </div>
+        <div class="field-error" id="titleError">Please enter a product title.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Craft Category *</label>
+            <select class="form-control" id="pCategory">
+              <option value="" selected></option>
+              <option value="Ceramics & Pottery">Ceramics & Pottery</option>
+              <option value="Handknit & Textiles">Handknit & Textiles</option>
+              <option value="Woodcraft & Carvings">Woodcraft & Carvings</option>
+              <option value="Brass & Metalwork">Brass & Metalwork</option>
+              <option value="Organic Scent & Wax">Organic Scent & Wax</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>SKU Code <span class="optional">(optional)</span></label>
+            <input type="text" class="form-control" id="pSKU">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description <span class="optional">(optional)</span></label>
+          <textarea class="form-control" id="pDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Variants <span class="optional">(sizes / colors / materials)</span></label>
+          <input type="text" class="form-control" id="pVariants">
+          <span class="form-hint">Separate variant choices with commas.</span>
+        </div>
+      </div>
+
+      <!-- PRICING & STOCK -->
+      <div class="card">
+        <div class="card-title">
+          <span class="material-symbols-outlined">payments</span>
+          Pricing & Stock
+        </div>
+        <div class="card-desc">Set your price and how many are available.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" class="form-control" id="pPrice" min="0.01" step="0.01" oninput="updateSimplePrice()">
+          </div>
+          <div class="form-group">
+            <label>Stock Count *</label>
+            <input type="number" class="form-control" id="pStock" min="0" step="1">
+          </div>
+        </div>
+        <div class="field-error" id="priceError">Please enter a valid price and stock count.</div>
+
+        <div class="margin-display" id="marginCalcDisplay" aria-live="polite"></div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="tr-title">Allow Pre-Orders</div>
+            <div class="tr-sub">For items made-to-order (10-14 days lead)</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="pPreOrderToggle">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row" style="margin-bottom:0;">
+          <div>
+            <div class="tr-title">Custom Orders Enabled</div>
+            <div class="tr-sub">Accept buyer bespoke requests / engravings</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="pCustomOrdersToggle">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button type="button" class="btn btn-subtle" id="draftButton" onclick="saveDraft()">Save as Draft</button>
+        <button type="submit" class="btn btn-maroon">
+          <span class="material-symbols-outlined" style="font-size:18px;">check_circle</span>
+          Save & Publish Listing
+        </button>
+      </div>
+    </form>
+  </div>
+    </main>
+  </div>
+
+  <div id="toastContainer"></div>
+
+  <script>
+    // ==========================================
+    // PHOTO UPLOAD (real file previews)
+    // ==========================================
+    const uploadZone = document.getElementById('uploadZone');
+    const photoInput = document.getElementById('photoInput');
+    const photoGrid = document.getElementById('photoGrid');
+    const MAX_PHOTOS = 8;
+    let photos = []; // { file, url }
+
+    uploadZone.addEventListener('click', () => photoInput.click());
+
+    ['dragenter', 'dragover'].forEach(evt =>
+      uploadZone.addEventListener(evt, (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('drag-over');
+      })
+    );
+    ['dragleave', 'drop'].forEach(evt =>
+      uploadZone.addEventListener(evt, (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+      })
+    );
+    uploadZone.addEventListener('drop', (e) => {
+      handleFiles(e.dataTransfer.files);
+    });
+    photoInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+      photoInput.value = '';
+    });
+
+    function handleFiles(fileList) {
+      const selectedFiles = Array.from(fileList);
+      const files = selectedFiles.filter(f =>
+        ['image/jpeg', 'image/png'].includes(f.type) && f.size <= 10 * 1024 * 1024
+      );
+      if (files.length !== selectedFiles.length) {
+        showToast('Only JPEG or PNG photos up to 10 MB each are supported.');
+      }
+      if (!files.length) return;
+
+      const remaining = MAX_PHOTOS - photos.length;
+      if (remaining <= 0) {
+        showToast(`You can add up to ${MAX_PHOTOS} photos.`);
+        return;
+      }
+
+      files.slice(0, remaining).forEach(file => {
+        const url = URL.createObjectURL(file);
+        photos.push({ file, url });
+      });
+
+      if (files.length > remaining) {
+        showToast(`Only added ${remaining} more photo(s) — ${MAX_PHOTOS} max.`);
+      }
+
+      renderPhotoGrid();
+      document.getElementById('photoError').style.display = 'none';
+    }
+
+    function removePhoto(index) {
+      URL.revokeObjectURL(photos[index].url);
+      photos.splice(index, 1);
+      renderPhotoGrid();
+    }
+
+    function renderPhotoGrid() {
+      photoGrid.innerHTML = photos.map((p, i) => `
+        <div class="photo-thumb">
+          <img src="${p.url}" alt="Product photo ${i + 1}">
+          ${i === 0 ? '<span class="cover-tag">Cover</span>' : ''}
+          <button type="button" class="remove-btn" onclick="removePhoto(${i})">
+            <span class="material-symbols-outlined" style="font-size:15px;">close</span>
+          </button>
+        </div>
+      `).join('');
+
+      if (photos.length < MAX_PHOTOS) {
+        photoGrid.innerHTML += `
+          <div class="photo-thumb add-more" onclick="photoInput.click()">
+            <span class="material-symbols-outlined">add_photo_alternate</span>
+            <span class="label">Add photo</span>
+          </div>
+        `;
+      }
+    }
+    renderPhotoGrid();
+
+    // ==========================================
+    // SIMPLE PRICING DISPLAY
+    // ==========================================
+    function formatCurrency(amount) {
+      return `₹${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function updateSimplePrice() {
+      const price = parseFloat(document.getElementById('pPrice').value) || 0;
+      const display = document.getElementById('marginCalcDisplay');
+      if (price > 0) {
+        const platformFee = price * 0.05;
+        const estimatedPayout = price - platformFee;
+        display.innerHTML = `
+          <div class="price-breakdown">
+            <div class="price-breakdown-row"><span>Buyer selling price</span><strong>${formatCurrency(price)}</strong></div>
+            <div class="price-breakdown-row"><span>Platform fee (5%)</span><span>−${formatCurrency(platformFee)}</span></div>
+            <div class="price-breakdown-row total"><span>Estimated seller payout</span><strong>${formatCurrency(estimatedPayout)}</strong></div>
+          </div>`;
+      } else {
+        display.replaceChildren();
+      }
+    }
+    document.getElementById('pPrice').addEventListener('input', updateSimplePrice);
+
+    function toggleMobileSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // ==========================================
+    // CLIENT DATABASE & MEDIA STORAGE (IndexedDB + localStorage)
+    // ==========================================
+    const DB_NAME = 'CraftVerseSellerDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'products';
+    const LOCAL_KEY = 'craftverse_products_v1';
+
+    function initDB() {
+      return new Promise((resolve) => {
+        if (!window.indexedDB) {
+          resolve(null);
+          return;
+        }
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = function(e) {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          }
+        };
+        req.onsuccess = function(e) {
+          resolve(e.target.result);
+        };
+        req.onerror = function() {
+          resolve(null);
+        };
+      });
+    }
+
+    async function dbSaveProduct(product) {
+      // 1. Save to IndexedDB (supports rich media/files)
+      try {
+        const db = await initDB();
+        if (db) {
+          await new Promise((resolve, reject) => {
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            const store = tx.objectStore(STORE_NAME);
+            store.put(product);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => reject(tx.error);
+          });
+        }
+      } catch (err) {
+        console.warn('IndexedDB save failed, falling back to localStorage:', err);
+      }
+
+      // 2. Also keep in localStorage for resilience
+      try {
+        const list = JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]');
+        const idx = list.findIndex(p => p.id === product.id);
+        if (idx >= 0) {
+          list[idx] = product;
+        } else {
+          list.unshift(product);
+        }
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
+      } catch (err) {
+        console.warn('LocalStorage save warning:', err);
+        throw new Error('Could not save this listing in browser storage.', { cause: err });
+      }
+      return product;
+    }
+
+    function fileToDataUrl(file, maxWidth = 800, maxHeight = 800, quality = 0.82) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth || height > maxHeight) {
+              if (width > height) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              } else {
+                width = Math.round((width * maxHeight) / height);
+                height = maxHeight;
+              }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = () => resolve(e.target.result);
+          img.src = e.target.result;
+        };
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ==========================================
+    // FORM SUBMIT
+    // ==========================================
+    async function saveProduct(isDraft) {
+      const form = document.getElementById('addProductForm');
+      const title = document.getElementById('pTitle').value.trim();
+      const category = document.getElementById('pCategory').value;
+      const price = parseFloat(document.getElementById('pPrice').value);
+      const stock = parseInt(document.getElementById('pStock').value, 10);
+
+      if (!isDraft) {
+        let valid = true;
+        document.getElementById('photoError').style.display = photos.length ? 'none' : 'block';
+        if (!photos.length) valid = false;
+        document.getElementById('titleError').style.display = title ? 'none' : 'block';
+        if (!title) valid = false;
+
+        const priceInvalid = !Number.isFinite(price) || !(price > 0) ||
+          !(stock >= 0) || !Number.isInteger(stock);
+        document.getElementById('priceError').style.display = priceInvalid ? 'block' : 'none';
+        if (priceInvalid) valid = false;
+        if (!category) {
+          showToast('Please select a craft category');
+          valid = false;
+        }
+        if (!valid) return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const draftBtn = document.getElementById('draftButton');
+      const activeBtn = isDraft ? draftBtn : submitBtn;
+      const originalText = activeBtn.innerHTML;
+      activeBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">hourglass_top</span> Saving...';
+      submitBtn.disabled = true;
+      draftBtn.disabled = true;
+      try {
+        let coverImage = '';
+        if (photos.length > 0 && photos[0].file) {
+          coverImage = await fileToDataUrl(photos[0].file);
+        }
+
+        const enteredSku = document.getElementById('pSKU').value.trim();
+        const sku = enteredSku || (!isDraft ? 'ART-' + Math.floor(100 + Math.random() * 900) : '');
+        const isPreOrder = document.getElementById('pPreOrderToggle').checked;
+        const isCustom = document.getElementById('pCustomOrdersToggle').checked;
+
+        const product = {
+          id: 'prod_' + Date.now(),
+          title,
+          category,
+          sku,
+          description: document.getElementById('pDescription').value.trim(),
+          variants: document.getElementById('pVariants').value.trim() || (isDraft ? '' : 'Standard'),
+          price: Number.isFinite(price) ? price : null,
+          stock: Number.isInteger(stock) && stock >= 0 ? stock : null,
+          preOrder: isPreOrder,
+          customOrders: isCustom,
+          orderType: isPreOrder ? 'Pre-Order' : (isCustom ? 'Custom Eligible' : 'Regular'),
+          status: isDraft || stock <= 0 ? 'draft' : (stock <= 3 ? 'low-stock' : 'active'),
+          coverImage,
+          imageUrl: coverImage,
+          photoCount: photos.length,
+          icon: category.includes('Ceramics') ? '🏺' : category.includes('Textiles') ? '🧶' : category.includes('Wood') ? '🪵' : category.includes('Metal') ? '🔔' : category.includes('Scent') ? '🕯️' : '📦',
+          createdAt: new Date().toISOString()
+        };
+
+        await dbSaveProduct(product);
+
+        showToast(isDraft ? 'Product draft saved.' : `"${title}" published with selling price ${formatCurrency(price)}!`);
+        setTimeout(() => {
+          window.location.href = `Sellerside.html?tab=products&${isDraft ? 'draftId' : 'newId'}=${product.id}`;
+        }, 900);
+      } catch (err) {
+        console.error('Error saving product to database:', err);
+        showToast(err.message || 'Could not save product. Please try again.');
+        activeBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        draftBtn.disabled = false;
+      }
+    }
+
+    document.getElementById('addProductForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      saveProduct(false);
+    });
+
+    function saveDraft() {
+      saveProduct(true);
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast-message';
+      toast.innerHTML = `<span class="material-symbols-outlined" style="color:#E9A94A; font-size:20px;">info</span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.4s';
+        setTimeout(() => toast.remove(), 400);
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
